@@ -1,0 +1,74 @@
+
+Register user ----(post) -- http://localhost:8080/api/addStaff/addUser
+{
+    "username":"test",
+    "password":"password123",
+    "uniqueId":"test123",
+    "emailId":"test@test.com",
+    "role": "user"
+}
+Register patient ----(post) -- http://localhost:8080/api/addStaff/addPatient
+{
+  "patientsDTO": {
+    "patientName" : "p1",
+		"contact_info" : "1234",
+		"address" :"delhi",
+		"patientId" : "p1",
+		"location": "delhi"
+  },
+  "userDto": {
+     "username":"p1",
+    "password":"password123",
+    "uniqueId":"p1",
+    "emailId":"test@test.com",
+    "role": "patient"
+  }
+  }
+  
+  Register doctor ----(post) -- http://localhost:8080/api/addStaff/addDoctors
+  
+  {
+  "doctorsDTO": {
+    "doctorId":"d1",
+	"docName":"d1",
+	"specialty": "s1",
+	"contact_info" : "12",
+	"location": "delhi",
+	"department" : "1",
+	"address":"asdf"
+  },
+  "userDto": {
+     "username":"d1",
+    "password":"password123",
+    "uniqueId":"d1",
+    "emailId":"test@test.com",
+    "role": "doctor"
+  }
+  }
+   GetInfo  Patient ----(get) -- http://localhost:8080/api/patient/getPatientInfo/p1
+
+
+  
+  book appointment  -----(get) -- http://localhost:8080/api/appointment/bookAppointment
+  {
+		"patientId" : "p1",
+		"location": "delhi",
+		 "department":"1",
+		  "reason":"abcd"	  
+  }
+  
+  
+
+ Get Appointments for Patient ---- http://localhost:8080/api/appointment/getPatientAppointments/{patient_id}
+ key:patient_id
+	value:p1
+  
+   Get Appointments of doc ---- http://localhost:8080/api/appointment/getDoctorAppointments/{doctors_id}
+ key:doctors_id
+	value:d1
+	
+	
+	 Get old records of patient ---- http://localhost:8080/api/appointment/getPatientOldRecords/{patient_id}
+key:patient_id
+	value:p1
+  
