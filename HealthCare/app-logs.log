@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 2024-07-31T17:08:14.029+03:00  INFO 24040 --- [HealthCare] [main] c.m.HealthCare.HealthCareApplication     : Starting HealthCareApplication using Java 17.0.11 with PID 24040 (D:\Akshita\JavaProject\HealthCare\target\classes started by HP in D:\Akshita\JavaProject\HealthCare)
 2024-07-31T17:08:14.032+03:00  INFO 24040 --- [HealthCare] [main] c.m.HealthCare.HealthCareApplication     : No active profile set, falling back to 1 default profile: "default"
 2024-07-31T17:08:15.237+03:00  INFO 24040 --- [HealthCare] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
@@ -1120,3 +1121,6 @@ Caused by: org.springframework.data.mapping.PropertyReferenceException: No prope
 2024-07-31T18:54:53.324+03:00  INFO 11572 --- [HealthCare] [https-jsse-nio-8443-exec-6] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
 2024-07-31T18:54:53.324+03:00  INFO 11572 --- [HealthCare] [https-jsse-nio-8443-exec-6] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
 2024-07-31T18:54:53.328+03:00  INFO 11572 --- [HealthCare] [https-jsse-nio-8443-exec-6] o.s.web.servlet.DispatcherServlet        : Completed initialization in 3 ms
+=======
+
+>>>>>>> 52a60808b1276d32efbf9eada3afd9475d95ec79
