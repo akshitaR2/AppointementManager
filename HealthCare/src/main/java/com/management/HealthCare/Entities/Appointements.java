@@ -1,6 +1,12 @@
 package com.management.HealthCare.Entities;
 
 import java.time.LocalDateTime;
+import java.util.Date;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -32,6 +38,14 @@ public class Appointements {
     private LocalDateTime endTime;
 	private String status;
 	private String reason;
+	
+	 @CreationTimestamp
+	    @Column(updatable = false, name = "created_at")
+	    private Date createdAt;
+
+	    @UpdateTimestamp
+	    @Column(name = "updated_at")
+	    private Date updatedAt;
 	
 
 	public Appointements(Patients patient, Doctors doctor, LocalDateTime startTime, LocalDateTime endTime,

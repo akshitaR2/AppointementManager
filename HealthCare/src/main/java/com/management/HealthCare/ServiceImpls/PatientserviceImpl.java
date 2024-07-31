@@ -1,4 +1,4 @@
-package com.management.HealthCare.Service;
+package com.management.HealthCare.ServiceImpls;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import com.management.HealthCare.Mappers.MapperConfig;
 import com.management.HealthCare.Models.PatientsDTO;
 import com.management.HealthCare.Repositories.PatientsRepo;
-import com.management.HealthCare.UserAuthentication.UserAuthController;
+import com.management.HealthCare.Service.Patientservice;
 
 @Service
 public class PatientserviceImpl implements Patientservice{
@@ -18,7 +18,7 @@ public class PatientserviceImpl implements Patientservice{
 	@Autowired
 	MapperConfig mapper;
 	
-	private static final Logger logger = LoggerFactory.getLogger(UserAuthController.class);
+	private static final Logger logger = LoggerFactory.getLogger(PatientserviceImpl.class);
 	
 
 	@Override

@@ -18,9 +18,7 @@ public class AppointmentDTO {
 	private String reason;
 	
 	private String patients_name;
-	private String patients_gender;
-	private int patients_contact_info;
-	private String patient_address;
+	private String patients_contact_info;
 	
 	
 	public AppointmentDTO(String patientId, String department, String location,String reason) {
@@ -128,35 +126,15 @@ public class AppointmentDTO {
 		this.patients_name = patients_name;
 	}
 
-
-	public String getPatients_gender() {
-		return patients_gender;
-	}
-
-
-	public void setPatients_gender(String patients_gender) {
-		this.patients_gender = patients_gender;
-	}
-
-
-	public int getPatients_contact_info() {
+	public String getPatients_contact_info() {
 		return patients_contact_info;
 	}
 
 
-	public void setPatients_contact_info(int patients_contact_info) {
+	public void setPatients_contact_info(String patients_contact_info) {
 		this.patients_contact_info = patients_contact_info;
 	}
 
-
-	public String getPatient_address() {
-		return patient_address;
-	}
-
-
-	public void setPatient_address(String patient_address) {
-		this.patient_address = patient_address;
-	}
 
 
 	

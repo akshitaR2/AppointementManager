@@ -20,7 +20,7 @@ public class BillRecords {
 	private int id;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "patientId")
+	@JoinColumn(name = "patient_uniqueid")
 	private Patients patient;
 
 	private double amount_due;

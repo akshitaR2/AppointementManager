@@ -21,11 +21,11 @@ public class MedicalRecords {
 	private Integer id;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "patientId")
+	@JoinColumn(name = "patient_uniqueid", referencedColumnName = "uniqueid")
 	private Patients patient;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "doctorId")
+	@JoinColumn(name = "doctor_uniqueid" ,referencedColumnName = "uniqueid")
 	private Doctors doctor;
 	
 	private Date visit_date;

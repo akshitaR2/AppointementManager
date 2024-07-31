@@ -11,7 +11,7 @@ import com.management.HealthCare.Entities.Patients;
 import com.management.HealthCare.Models.PatientsDTO;
 
 @Repository
-public interface PatientsRepo extends JpaRepository<Patients, Integer>{
+public interface PatientsRepo extends JpaRepository<Patients, String>{
 
 
 

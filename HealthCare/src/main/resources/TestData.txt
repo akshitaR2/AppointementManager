@@ -9,40 +9,33 @@ Register user ----(post) -- http://localhost:8080/api/addStaff/addUser
 }
 Register patient ----(post) -- http://localhost:8080/api/addStaff/addPatient
 {
-  "patientsDTO": {
     "patientName" : "p1",
 		"contact_info" : "1234",
-		"address" :"delhi",
 		"patientId" : "p1",
-		"location": "delhi"
-  },
-  "userDto": {
+		"location": "delhi",
      "username":"p1",
     "password":"password123",
-    "uniqueId":"p1",
     "emailId":"test@test.com",
-    "role": "patient"
-  }
+    "role": "PATIENT"
   }
   
   Register doctor ----(post) -- http://localhost:8080/api/addStaff/addDoctors
-  
+  	
+		
+		
   {
-  "doctorsDTO": {
+  
     "doctorId":"d1",
 	"docName":"d1",
 	"specialty": "s1",
 	"contact_info" : "12",
 	"location": "delhi",
 	"department" : "1",
-	"address":"asdf"
-  },
-  "userDto": {
+	"address":"asdf",
      "username":"d1",
     "password":"password123",
-    "uniqueId":"d1",
     "emailId":"test@test.com",
-    "role": "doctor"
+    "role": "DOCTOR"
   }
   }
    GetInfo  Patient ----(get) -- http://localhost:8080/api/patient/getPatientInfo/p1
@@ -56,8 +49,7 @@ Register patient ----(post) -- http://localhost:8080/api/addStaff/addPatient
 		 "department":"1",
 		  "reason":"abcd"	  
   }
-  
-  
+ 
 
  Get Appointments for Patient ---- http://localhost:8080/api/appointment/getPatientAppointments/{patient_id}
  key:patient_id

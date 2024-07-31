@@ -1,7 +1,12 @@
 package com.management.HealthCare.Entities;
 
 import java.time.LocalTime;
+import java.util.Date;
 import java.util.List;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -16,15 +21,14 @@ import jakarta.persistence.Table;
 @Table(name = "doctors_list",indexes = {@Index(name=" idx_availableDoc",columnList = "department,location")})
 public class Doctors {
 
+	
 	@Id
-	@GeneratedValue (strategy = GenerationType.IDENTITY)
-	@Column(name = "sno",nullable = false)
-	private Integer sno;
-	@Column(name = "uniqueid",nullable = false)
-	private String doctorsId;
+	@Column(name = "uniqueid",nullable = false,unique = true)
+	private String doctorId;
+	
 	private String docName;
 	private String specialty;
-	private int contact_info;
+	private String contact_info;
 	private String location;
 	private String address;
 	private String department;
@@ -39,6 +43,14 @@ public class Doctors {
 	private int office_hours;
 	private LocalTime workStartTime = LocalTime.of(10, 0);
 	private LocalTime workEndTime = LocalTime.of(12, 0);
+	
+	 @CreationTimestamp
+	    @Column(updatable = false, name = "created_at")
+	    private Date createdAt;
+
+	    @UpdateTimestamp
+	    @Column(name = "updated_at")
+	    private Date updatedAt;
 
 	public Doctors() {
 		super();
@@ -58,11 +70,11 @@ public class Doctors {
 //	}
 	
 
-public Doctors(String doctorsId, String docName, String specialty, int contact_info, String location, String address,
+public Doctors(String doctorId, String docName, String specialty, String contact_info, String location, String address,
 		String department, List<Appointements> appointements, List<MedicalRecords> medicalRecords, int office_hours,
 		LocalTime workStartTime, LocalTime workEndTime) {
 	super();
-	this.doctorsId = doctorsId;
+	this.doctorId = doctorId;
 	this.docName = docName;
 	this.specialty = specialty;
 	this.contact_info = contact_info;
@@ -76,12 +88,12 @@ public Doctors(String doctorsId, String docName, String specialty, int contact_i
 	this.workEndTime = workEndTime;
 }
 
-public String getDoctorsId() {
-	return doctorsId;
+public String getDoctorId() {
+	return doctorId;
 }
 
-public void setDoctorsId(String doctorsId) {
-	this.doctorsId = doctorsId;
+public void setDoctorId(String doctorsId) {
+	this.doctorId = doctorsId;
 }
 
 public String getDocName() {
@@ -100,11 +112,11 @@ public void setSpecialty(String specialty) {
 	this.specialty = specialty;
 }
 
-public int getContact_info() {
+public String getContact_info() {
 	return contact_info;
 }
 
-public void setContact_info(int contact_info) {
+public void setContact_info(String contact_info) {
 	this.contact_info = contact_info;
 }
 

@@ -1,6 +1,6 @@
 package com.management.HealthCare.Models;
 
-	public enum DepartmentName {
+	public enum DepartmentEnum {
 	    CARDIOLOGY(1, "Cardiology"),
 	    NEUROLOGY(2, "Neurology"),
 	    ORTHOPEDICS(3, "Orthopedics"),
@@ -10,7 +10,7 @@ package com.management.HealthCare.Models;
 	    private final int id;
 	    private final String displayName;
 
-	    DepartmentName(int id, String displayName) {
+	    DepartmentEnum(int id, String displayName) {
 	        this.id = id;
 	        this.displayName = displayName;
 	    }
@@ -23,8 +23,8 @@ package com.management.HealthCare.Models;
 	        return displayName;
 	    }
 
-	    public static DepartmentName fromId(int id) {
-	        for (DepartmentName department : values()) {
+	    public static DepartmentEnum fromId(int id) {
+	        for (DepartmentEnum department : values()) {
 	            if (department.getId() == id) {
 	                return department;
 	            }
@@ -32,8 +32,8 @@ package com.management.HealthCare.Models;
 	        throw new IllegalArgumentException("No department with id " + id);
 	    }
 
-	    public static DepartmentName fromDisplayName(String displayName) {
-	        for (DepartmentName department : values()) {
+	    public static DepartmentEnum fromDisplayName(String displayName) {
+	        for (DepartmentEnum department : values()) {
 	            if (department.getDisplayName().equalsIgnoreCase(displayName)) {
 	                return department;
 	            }

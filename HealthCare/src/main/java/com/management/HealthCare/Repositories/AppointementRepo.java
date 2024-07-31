@@ -25,28 +25,5 @@ public interface AppointementRepo extends JpaRepository<Appointements, Integer> 
 	@Query(value = "select * from appointements where  patient_uniqueid = :patient_id AND status = :status ",nativeQuery = true)
 	List<Appointements> findAllByPatientIdAndStatus(@Param("patient_id")String patient_id,@Param("status") String status);
 
-//	boolean existsByPatientId(String patient_id);
-//	
-//	 @Query(value = "SELECT a.* FROM appointments a " +
-//             "JOIN doctors d ON a.doctor_id = d.id " +
-//             "WHERE d.id IN (:doctorIds) " +
-//             "AND d.city = :city " +
-//             "AND d.department = :department " +
-//             "AND a.start_time >= :startDate", nativeQuery = true)
-//List<Appointment> findAppointmentsByDoctorCriteriaNative(
-//  @Param("doctorIds") List<Long> doctorIds, 
-//  @Param("city") String city, 
-//  @Param("department") String department, 
-//  @Param("startDate") LocalDateTime startDate);
-	
-	
-	
-//    @Query("SELECT a FROM Appointment a WHERE a.doctor.id IN :doctorIds AND a.doctor.city = :city AND a.doctor.department = :department AND a.startTime >= :startDate")
-//    List<Appointment> findAppointmentsByDoctorCriteria(
-//        @Param("doctorIds") List<Long> doctorIds, 
-//        @Param("city") String city, 
-//        @Param("department") String department, 
-//        @Param("startDate") LocalDateTime startDate);
-
 
 }

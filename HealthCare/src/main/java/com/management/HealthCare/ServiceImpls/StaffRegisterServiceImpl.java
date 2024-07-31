@@ -1,4 +1,4 @@
-package com.management.HealthCare.Service;
+package com.management.HealthCare.ServiceImpls;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,15 +8,17 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.management.HealthCare.Entities.Doctors;
 import com.management.HealthCare.Entities.Patients;
+import com.management.HealthCare.Entities.User;
 import com.management.HealthCare.Mappers.MapperConfig;
 import com.management.HealthCare.Models.DoctorsDTO;
+import com.management.HealthCare.Models.PatientsDTO;
 import com.management.HealthCare.Models.RegisterDTO;
+import com.management.HealthCare.Models.UserDto;
 import com.management.HealthCare.Repositories.DoctorsRepo;
 import com.management.HealthCare.Repositories.PatientsRepo;
-import com.management.HealthCare.UserAuthentication.UserAuthController;
-import com.management.HealthCare.UserAuthentication.UserDto;
-import com.management.HealthCare.UserAuthentication.UserEntity;
-import com.management.HealthCare.UserAuthentication.UserRepo;
+import com.management.HealthCare.Repositories.UserRepo;
+import com.management.HealthCare.Service.AuditLogService;
+import com.management.HealthCare.Service.StaffRegisterService;
 
 @Service
 public class StaffRegisterServiceImpl implements StaffRegisterService {
@@ -37,74 +39,52 @@ public class StaffRegisterServiceImpl implements StaffRegisterService {
 	DoctorsRepo doctorsRepo;
 
 
-	private static final Logger logger = LoggerFactory.getLogger(UserAuthController.class);
+	private static final Logger logger = LoggerFactory.getLogger(StaffRegisterServiceImpl.class);
 	
 	
 	@Override
 	@Transactional
-	public String addDoctor(RegisterDTO dto) {
-		if (userRepo.existsByUniqueId(dto.getUserDto().getUniqueId()))
+	public String addDoctor(DoctorsDTO dto) {
+		if (userRepo.existsByUniqueId(dto.getDoctorId()))
 			return "already exists";
-		else {
-			try {
-				
-				userRepo.save(mapper.userDtotoEntity(dto.getUserDto()));
-				Doctors doc=mapper.doctorsDTOtoEntity(dto.getDoctorsDTO());
-//				doc.setDepartmentId(dto.getDoctorsDTO().getDepartment());
+				userRepo.save(mapper.getUserFromDoctorDto(dto));
+				Doctors doc=mapper.doctorsDTOtoEntity(dto);
 				doctorsRepo.save(doc);
 				auditService.logAction("user,doctor", "entity", "add",null,"userid");
 				logger.info("new user added - doctor");
 				return "Doctor details added";
-			} catch (Exception e) {
-				logger.error("Error occurred while performing action", e);
-				 throw e;
-			}
-		}
+		
 	}
 
 	@Override
 	@Transactional
-	public Boolean addPatient(RegisterDTO dto) {
-		
-			try {
-				
-				if (userRepo.existsByUniqueId(dto.getUserDto().getUniqueId()))
+	public Boolean addPatient(PatientsDTO dto) {
+				if (userRepo.existsByUniqueId(dto.getPatientId()))
 					return false;
-				else {
-					UserEntity entity = mapper.userDtotoEntity(dto.getUserDto());
-					Patients patients= mapper.patientsDTOtoEntity(dto.getPatientsDTO());
+				
+					User entity = mapper.getUserFromPatientDto(dto);
+					Patients patients= mapper.patientsDTOtoEntity(dto);
 					userRepo.save(entity);
 					patRepo.save(patients);
 					auditService.logAction("user,doctor", "entity", "add",null,"userid");
 					logger.info("new user added -patient");
 					return true;
-				}
-			} catch (Exception e) {
-				logger.error("Error occurred while performing action", e);
-				throw e;
-			}
+				
 		
 	}
 
 	@Override
-	public Boolean addUser(UserDto dto) {
-		try {
+	public Boolean addUser(RegisterDTO dto) {
 			if (userRepo.existsByUniqueId(dto.getUniqueId())) {
 				logger.info("register user declines since user already exist");
 				return false;
 			}
-			else {
-				UserEntity entity = mapper.userDtotoEntity(dto);
+				User entity = mapper.getUser(dto);
 				userRepo.save(entity);
 				auditService.logAction("user", "entity", "add",null,"userid");
 				logger.info("new user added ");
 				return true;
-			}
-		} catch (Exception e) {
-
-			logger.error("Error occurred while performing action", e);
-			throw e;
-		}
+		
 	}
 	
 	

@@ -1,48 +1,34 @@
-package com.management.HealthCare.UserAuthentication;
+package com.management.HealthCare.Models;
 
-import jakarta.annotation.Generated;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Entity
-@Table(name = "user_auth_details")
-public class UserEntity {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
-//	@ManyToOne
-//    @JoinColumn(name = "role_id", referencedColumnName = "role_id")
-//    private Role role;
-	private String role;
+
+public class UserDto {
+
 	private String username;
 	private String password;
-	
-	@Column(name = "uniqueId", unique = true,nullable = false)
 	private String uniqueId;
-	
 	private String emailId;
+	private String role;
 	
-	public UserEntity() {
+	
+	
+	public UserDto(String username, String password, String uniqueId, String emailId, String role) {
 		super();
-	}
-	
-	
-	public UserEntity(String role, String username, String password, String uniqueId, String emailId) {
-		super();
-		this.role = role;
 		this.username = username;
 		this.password = password;
 		this.uniqueId = uniqueId;
 		this.emailId = emailId;
+		this.role = role;
 	}
 
-
+	public UserDto() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	public String getUsername() {
 		return username;
 	}
@@ -55,7 +41,7 @@ public class UserEntity {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
+	
 	public String getUniqueId() {
 		return uniqueId;
 	}
@@ -68,10 +54,12 @@ public class UserEntity {
 	public void setEmailId(String emailId) {
 		this.emailId = emailId;
 	}
-	
+
+
 	public String getRole() {
 		return role;
 	}
+
 
 	public void setRole(String role) {
 		this.role = role;
@@ -79,5 +67,4 @@ public class UserEntity {
 	
 	
 	
-
 }

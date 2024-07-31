@@ -1,4 +1,4 @@
-package com.management.HealthCare.Service;
+package com.management.HealthCare.ServiceImpls;
 
 import java.lang.StackWalker.Option;
 import java.time.DayOfWeek;
@@ -27,7 +27,8 @@ import com.management.HealthCare.Models.AppointmentDTO;
 import com.management.HealthCare.Repositories.AppointementRepo;
 import com.management.HealthCare.Repositories.DoctorsRepo;
 import com.management.HealthCare.Repositories.PatientsRepo;
-import com.management.HealthCare.UserAuthentication.UserRepo;
+import com.management.HealthCare.Repositories.UserRepo;
+import com.management.HealthCare.Service.AppointmentService;
 
 import jakarta.transaction.Transactional;
 
@@ -77,6 +78,8 @@ public class AppointmentServiceImpl implements AppointmentService{
 		dto.setDoctorName(doc.getDocName());
 		dto.setStartdate(firstEntry.get().getValue());
 		dto.setStatus("open");
+		dto.setPatients_contact_info(patEntity.getContact_info());
+		dto.setPatients_name(patEntity.getPatientName());
 		return dto;
 		}
 		catch(Exception e) {
@@ -146,49 +149,51 @@ public class AppointmentServiceImpl implements AppointmentService{
 
 	        return slots;
 	    } 
-	 	 
-
-	@Override
-	public List<AppointmentDTO> getPatientAppointments(String patient_id) {
-		Optional<Patients> patient=  Optional.ofNullable( patRepo.findByPatientId(patient_id));
-		List<AppointmentDTO> appoitmentsLists=new ArrayList<AppointmentDTO>(); 
-		patient.ifPresent(p->
-		Optional.ofNullable(p.getAppointements()).ifPresent(appointment->{
-		Optional.ofNullable(appointment.stream().filter(app->app.getStatus().equals("open"))).ifPresent(a->{
-			a.forEach(appoint->appoitmentsLists.add(mapper.AppointementEntitytoDTO(appoint)));
-		});	
-		}));
-		return appoitmentsLists;
-	}
-	
-
-	@Override
-	public List<AppointmentDTO> getDoctorsAppointments(String doctors_id) {
-		 Doctors doc=docRepo.findByDoctorsId(doctors_id);
-		  List<AppointmentDTO> appoitmentsLists=new ArrayList<AppointmentDTO>(); 
-		    Optional.ofNullable(doc.getAppointements())
-		        .ifPresent(appointments -> {
-		            appointments.forEach(app -> 
-		                appoitmentsLists.add(mapper.AppointementEntitytoDocAppDto(app))
-		            );
-		        });
-		
-		return appoitmentsLists;
-	}
-
-	@Override
-	public List<AppointmentDTO> getPatientPastRecords(String patient_id, String status) {
-		Optional<Patients> patient=  Optional.ofNullable( patRepo.findByPatientIdAndStatus(patient_id,status));
-		List<AppointmentDTO> appoitmentsLists=new ArrayList<AppointmentDTO>(); 
-		patient.ifPresent(p->
-		Optional.ofNullable(p.getAppointements()).ifPresent(appointment->{
-		Optional.ofNullable(appointment.stream().filter(app->app.getStatus().equals("closed"))).ifPresent(a->{
-			a.forEach(appoint->appoitmentsLists.add(mapper.AppointementEntitytoDTO(appoint)));
-		});	
-		}));
-
-		return appoitmentsLists;
-	}
+//	------------------ ACTUAL CODE ---------------------DO NOT REMOVE--------------------------- 	    
+//
+//	@Override
+//	public List<AppointmentDTO> getPatientAppointments(String patient_id) {
+//		Optional<Patients> patient=  Optional.ofNullable( patRepo.findByPatientId(patient_id));
+//		List<AppointmentDTO> appoitmentsLists=new ArrayList<AppointmentDTO>(); 
+//		patient.ifPresent(p->
+//		Optional.ofNullable(p.getAppointements()).ifPresent(appointment->{
+//		Optional.ofNullable(appointment.stream().filter(app->app.getStatus().equals("open"))).ifPresent(a->{
+//			a.forEach(appoint->appoitmentsLists.add(mapper.AppointementEntitytoDTO(appoint)));
+//		});	
+//		}));
+//		return appoitmentsLists;
+//	}
+//	
+//
+//	@Override
+//	public List<AppointmentDTO> getDoctorsAppointments(String doctors_id) {
+//		 Doctors doc=docRepo.findByDoctorsId(doctors_id);
+//		  List<AppointmentDTO> appoitmentsLists=new ArrayList<AppointmentDTO>(); 
+//		    Optional.ofNullable(doc.getAppointements())
+//		        .ifPresent(appointments -> {
+//		            appointments.forEach(app -> 
+//		                appoitmentsLists.add(mapper.AppointementEntitytoDocAppDto(app))
+//		            );
+//		        });
+//		
+//		return appoitmentsLists;
+//	}
+//
+//	@Override
+//	public List<AppointmentDTO> getPatientPastRecords(String patient_id, String status) {
+//		Optional<Patients> patient=  Optional.ofNullable( patRepo.findByPatientIdAndStatus(patient_id,status));
+//		List<AppointmentDTO> appoitmentsLists=new ArrayList<AppointmentDTO>(); 
+//		patient.ifPresent(p->
+//		Optional.ofNullable(p.getAppointements()).ifPresent(appointment->{
+//		Optional.ofNullable(appointment.stream().filter(app->app.getStatus().equals("closed"))).ifPresent(a->{
+//			a.forEach(appoint->appoitmentsLists.add(mapper.AppointementEntitytoDTO(appoint)));
+//		});	
+//		}));
+//
+//		return appoitmentsLists;
+//	}
+	 
+// ------------------------ DO NOT REMOVE THE ABOVE COMMENTED SESSION------------------------------------------
 
 	@Override
 	public String updateAppointment(String id, String status) {
@@ -196,6 +201,39 @@ public class AppointmentServiceImpl implements AppointmentService{
 		return null;
 	}
    
+//-------------------------------- NEW TRY USING APPOINT ENTITY--------------------------------------
+	@Override
+	public List<AppointmentDTO> getPatientAppointments(String patient_id) {
+		List<AppointmentDTO> appoitmentsLists=new ArrayList<AppointmentDTO>(); 
+		Optional<List<Appointements>> appointments=Optional.ofNullable(appRepo.findAllByPatientId(patient_id));
+		appointments.ifPresent(appointment->{
+			appointment.forEach(app->appoitmentsLists.add(mapper.AppointementEntitytoDTO(app)));
+		});
+		return appoitmentsLists;
+	}
+	
 
+	@Override
+	public List<AppointmentDTO> getDoctorsAppointments(String doctors_id) {
+		  List<AppointmentDTO> appoitmentsLists=new ArrayList<AppointmentDTO>(); 
+		  Optional<List<Appointements>> appointments=Optional.ofNullable(appRepo.findAllByDoctorId(doctors_id));
+			appointments.ifPresent(appointment->{
+				appointment.forEach(app->appoitmentsLists.add(mapper.AppointementEntitytoDocAppDto(app)));
+			});	                
+		      	
+		return appoitmentsLists;
+	}
+
+	@Override
+	public List<AppointmentDTO> getPatientPastRecords(String patient_id, String status) {
+		List<AppointmentDTO> appoitmentsLists=new ArrayList<AppointmentDTO>(); 
+		Optional<List<Appointements>> appointments=Optional.ofNullable(appRepo.findAllByPatientIdAndStatus(patient_id,status));
+		appointments.ifPresent(appointment->{
+			appointment.forEach(app->appoitmentsLists.add(mapper.AppointementEntitytoDTO(app)));
+		});
+		return appoitmentsLists;
+	}
+	
+//	-------------------------------------------- END OF THIS -------------------------------------------------------
 	
 }
